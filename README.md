@@ -1,4 +1,4 @@
-# Meal Planner Backend
+# meal-planner-backend
 
 Simple overview of use/purpose.
 
