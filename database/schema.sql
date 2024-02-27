@@ -2,6 +2,8 @@ BEGIN;
 
 DROP TABLE IF EXISTS users_recipe;
 DROP TABLE IF EXISTS recipe_ingredient;
+DROP TABLE IF EXISTS recipe_tags;
+DROP TABLE IF EXISTS tags;
 DROP TABLE IF EXISTS ingredient;
 DROP TABLE IF EXISTS recipe;
 DROP TABLE IF EXISTS users;
@@ -28,6 +30,20 @@ CREATE TABLE ingredient
     ingredient_id   SERIAL PRIMARY KEY,
     ingredient_name VARCHAR(50) NOT NULL
 );
+
+CREATE TABLE tags
+(
+    tag_id   SERIAL PRIMARY KEY,
+    tag_name VARCHAR(50) NOT NULL
+);
+
+CREATE TABLE recipe_tags
+(
+    recipe_id INTEGER REFERENCES recipe (recipe_id),
+    tag_id    INTEGER REFERENCES tags (tag_id),
+    PRIMARY KEY (recipe_id, tag_id)
+);
+
 
 CREATE TABLE users_recipe
 (
@@ -120,5 +136,42 @@ INSERT INTO recipe_ingredient (recipe_id, ingredient_id, quantity, unit)
 VALUES (5, 14, 200, 'g'),
        (5, 15, 5, 'g'),
        (5, 16, 3, 'pcs');
+
+INSERT INTO tags (tag_name)
+VALUES ('Mexican'),
+       ('Quick Meals');
+
+INSERT INTO recipe_tags (recipe_id, tag_id)
+VALUES (5, 1),
+       (5, 2);
+
+INSERT INTO tags (tag_name)
+VALUES ('Indian');
+
+INSERT INTO recipe_tags (recipe_id, tag_id)
+VALUES (4, 3),
+       (4, 2);
+
+INSERT INTO tags (tag_name)
+VALUES ('Asian');
+
+INSERT INTO recipe_tags (recipe_id, tag_id)
+VALUES (3, 4),
+       (3, 2);
+
+INSERT INTO tags (tag_name)
+VALUES ('Italian');
+
+INSERT INTO recipe_tags (recipe_id, tag_id)
+VALUES (2, 5),
+       (2, 2);
+
+INSERT INTO tags (tag_name)
+VALUES ('Pasta');
+
+INSERT INTO recipe_tags (recipe_id, tag_id)
+VALUES (1, 3),
+       (1, 2);
+
 
 COMMIT;
